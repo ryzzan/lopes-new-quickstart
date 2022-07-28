@@ -1,0 +1,71 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Convites</mat-card-title>
+
+  </mat-card-header>
+
+  <mat-card-actions>
+    <form id="invitationTable" #invitationTableDirective="ngForm" [formGroup]="invitationTableSearchForm"
+      (ngSubmit)="invitationTableSearch(invitationTableDirective)">
+      <mat-form-field appearance="standard">
+        <mat-label>Filtro</mat-label>
+        <input matInput formControlName="searchInput" placeholder="Procure qualquer coisa">
+      </mat-form-field>
+      <button mat-raised-button color="primary">
+        <mat-icon>search</mat-icon> Filtrar
+      </button>
+    </form>
+  </mat-card-actions>
+
+  <mat-card-content class="table-container">
+    <table mat-table [dataSource]="invitationTableDataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nome </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.name}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="undefined">
+        <th mat-header-cell *matHeaderCellDef> Ações </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button class="icon" aria-label="InvitationTable" [matMenuTriggerFor]="invitationTableMenu"
+            [matMenuTriggerData]="{element: element}">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="invitationTableDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: invitationTableDisplayedColumns;"></tr>
+    </table>
+    <div style="width: 100%; height: 100px; display: flex; align-items: center; justify-content: center; color: #c9c9c9"
+      *ngIf="invitationTableDataSource.length === 0 && !isLoading">
+      <div style="display: flex; flex-direction: column;">
+        <img width="50" height="50"
+          style="filter: invert(60%) sepia(0%) saturate(60%) hue-rotate(88deg) brightness(128%) contrast(119%);"
+          src="https://www.svgrepo.com/show/97068/empty-box.svg" alt="">
+        <span>No Data</span>
+      </div>
+    </div>
+    <div *ngIf="isLoading" class="loading">
+      <mat-progress-bar color="primary" mode="buffer">
+      </mat-progress-bar>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-menu #invitationTableMenu="matMenu">
+
+  <ng-template matMenuContent let-_id="element._id"><button mat-menu-item [routerLink]="['/main/invitation', _id]">
+
+      <span>Editar</span>
+    </button>
+
+    <button mat-menu-item (click)="removeConfirmationDialogOpenDialog(_id)">
+
+      <span>Remover</span>
+    </button>
+  </ng-template>
+</mat-menu>
