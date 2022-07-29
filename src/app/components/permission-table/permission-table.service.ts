@@ -13,7 +13,7 @@
       
         getAll(filter: string = "") {
           return this._httpClient.get(
-            `${this.BASE_URL}/__permissions${filter}`, {
+            `${this.BASE_URL}/__permission-group${filter}`, {
               headers: {
                 "Authorization": `Bearer ${sessionStorage.getItem("token")}`
               }
@@ -23,7 +23,7 @@
         
         delete(id: string) {
           return this._httpClient.delete(
-            `${this.BASE_URL}/__permissions/${id}`,
+            `${this.BASE_URL}/__permission-group/${id}`,
             {
               headers: {
                 "Authorization": `Bearer ${sessionStorage.getItem("token")}`
@@ -34,7 +34,7 @@
         
         find(id: string) {
           return this._httpClient.get(
-            `${this.BASE_URL}/__permissions/${id}`,
+            `${this.BASE_URL}/__permission-group/${id}`,
             {
               headers: {
                 "Authorization": `Bearer ${sessionStorage.getItem("token")}`
