@@ -29,6 +29,18 @@ export class MainComponent implements OnInit {
       icon: 'dashboard',
       itens: [],
     },
+    {
+      router: '/main/__invitation',
+      title: 'Convite',
+      icon: 'dashboard',
+      itens: [],
+    },
+    {
+      router: '/main/__permission-group',
+      title: 'Permissão',
+      icon: 'dashboard',
+      itens: [],
+    },
   ];
   isMenuOpened = true;
   isToLogout: boolean = true;
