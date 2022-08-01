@@ -14,34 +14,6 @@ export const routes: Routes = [
     component: MainComponent,
     children: [
       {
-        path: "permission",
-        loadChildren: () =>
-          import("../permission/permission.module").then(
-            (m) => m.PermissionModule
-          ),
-      },
-      {
-        path: "permission/:id",
-        loadChildren: () =>
-          import("../permission/permission.module").then(
-            (m) => m.PermissionModule
-          ),
-      },
-      {
-        path: "invitation",
-        loadChildren: () =>
-          import("../invitation/invitation.module").then(
-            (m) => m.InvitationModule
-          ),
-      },
-      {
-        path: "invitation/:id",
-        loadChildren: () =>
-          import("../invitation/invitation.module").then(
-            (m) => m.InvitationModule
-          ),
-      },
-      {
         path: "dashboard",
         loadChildren: () =>
           import("../dashboard/dashboard.module").then(
