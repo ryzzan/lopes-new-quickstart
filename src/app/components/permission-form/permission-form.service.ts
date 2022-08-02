@@ -13,7 +13,7 @@
       
         getAll(filter: string = "") {
           return this._httpClient.get(
-            `${this.BASE_URL}/__permission-group${filter}`, {
+            `${this.BASE_URL}/__permission-groups${filter}`, {
               headers: {
                 "Authorization": `Bearer ${sessionStorage.getItem("token")}`
               }
@@ -23,7 +23,7 @@
         
         delete(id: string) {
           return this._httpClient.delete(
-            `${this.BASE_URL}/__permission-group/${id}`,
+            `${this.BASE_URL}/__permission-groups/${id}`,
             {
               headers: {
                 "Authorization": `Bearer ${sessionStorage.getItem("token")}`
@@ -34,7 +34,7 @@
         
         save(body: any) {
           return this._httpClient.post(
-          `${this.BASE_URL}/__permission-group`, 
+          `${this.BASE_URL}/__permission-groups`, 
           body,
           {
             headers: {
@@ -46,7 +46,7 @@
         
         update(body: any, id: string) {
           return this._httpClient.put(
-            `${this.BASE_URL}/__permission-group/${id}`, 
+            `${this.BASE_URL}/__permission-groups/${id}`, 
             body,
             {
               headers: {
@@ -58,7 +58,7 @@
         
         find(id: string) {
           return this._httpClient.get(
-            `${this.BASE_URL}/__permission-group/${id}`,
+            `${this.BASE_URL}/__permission-groups/${id}`,
             {
               headers: {
                 "Authorization": `Bearer ${sessionStorage.getItem("token")}`
