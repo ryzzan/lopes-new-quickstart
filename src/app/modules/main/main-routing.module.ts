@@ -20,6 +20,20 @@ export const routes: Routes = [
             (m) => m.DashboardModule
           ),
       },
+      {
+        path: "__invitation",
+        loadChildren: () =>
+          import("../invitation/invitation.module").then(
+            (m) => m.__InvitationModule
+          ),
+      },
+      {
+        path: "__permission-group",
+        loadChildren: () =>
+          import("../permission/permission.module").then(
+            (m) => m.__PermissionGroupModule
+          ),
+      },
     ],
   },
   {
