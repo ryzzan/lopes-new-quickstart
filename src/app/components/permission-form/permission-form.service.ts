@@ -11,7 +11,7 @@ export class PermissionFormService {
 
   getAll(filter: string = "") {
     return this._httpClient
-      .get(`${this.BASE_URL}/__permissions${filter}`, {
+      .get(`${this.BASE_URL}/__permission-groups${filter}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
@@ -21,7 +21,7 @@ export class PermissionFormService {
 
   delete(id: string) {
     return this._httpClient
-      .delete(`${this.BASE_URL}/__permissions/${id}`, {
+      .delete(`${this.BASE_URL}/__permission-groups/${id}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
@@ -31,7 +31,7 @@ export class PermissionFormService {
 
   save(body: any) {
     return this._httpClient
-      .post(`${this.BASE_URL}/__permissions`, body, {
+      .post(`${this.BASE_URL}/__permission-groups`, body, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
@@ -41,7 +41,7 @@ export class PermissionFormService {
 
   update(body: any, id: string) {
     return this._httpClient
-      .put(`${this.BASE_URL}/__permissions/${id}`, body, {
+      .put(`${this.BASE_URL}/__permission-groups/${id}`, body, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
@@ -51,7 +51,7 @@ export class PermissionFormService {
 
   find(id: string) {
     return this._httpClient
-      .get(`${this.BASE_URL}/__permissions/${id}`, {
+      .get(`${this.BASE_URL}/__permission-groups/${id}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
