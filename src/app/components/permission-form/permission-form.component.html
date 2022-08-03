@@ -1,87 +1,88 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Permissão</mat-card-title>
 
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Permissão</mat-card-title>
-      
-    </mat-card-header>
+  </mat-card-header>
 
-    <mat-card-content>
-      <div *ngIf="isLoading" class="loading">
-        <mat-progress-bar color="primary" mode="buffer">
-        </mat-progress-bar>
-      </div>
-      <form id="permissionForm" 
-      [formGroup]="permissionFormForm" 
-      #permissionFormDirective="ngForm" 
-      (ngSubmit)="permissionFormSubmit(permissionFormDirective)" 
-      *ngIf="!isLoading">
-      <mat-tab-group><mat-tab label="Grupo de permissão" id="permissionGroupTab">
-      <mat-form-field >
-        <mat-label>Nome</mat-label>
-        <input matInput type="text" formControlName="name" placeholder="Nome do grupo" required  autocomplete="new-password">
-      </mat-form-field>
-      
-      <mat-form-field >
-        <mat-label>Descrição</mat-label>
-        <input matInput type="text" formControlName="description" placeholder="Descrição do grupo"   autocomplete="new-password">
-      </mat-form-field>
-      
-    <mat-slide-toggle formControlName="isAdminPermission"  >
-      Permissão administrativa
-    </mat-slide-toggle>
-    </mat-tab><mat-tab label="Permissões sobre módulos" id="moduleTab">
-    <div >
-      <ng-container formArrayName="modulePermissionArray">
-        <mat-list *ngFor="let _modulePermissionArray of getModulePermissionArray(this.permissionFormForm); index as i">
-          <ng-container [formGroupName]="i">
-            <mat-list-item>
-              Permissão sobre módulo {{1 + i}}
-            </mat-list-item>
-            <div>
-              
-    <mat-form-field >
-      <mat-label>Módulo</mat-label>
-      <mat-select formControlName="moduleId"   >
-        <mat-option *ngFor="let moduleIdItem of moduleIdSelectObject" [value]="moduleIdItem.value">
-          {{moduleIdItem.label}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    
-    <mat-form-field >
-      <mat-label>Permissões</mat-label>
-      <mat-select formControlName="permissionActionId"  multiple >
-        <mat-option *ngFor="let permissionActionIdItem of permissionActionIdSelectObject" [value]="permissionActionIdItem.value">
-          {{permissionActionIdItem.label}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    
-            </div>
-            <div>
-              <button mat-button type="button" color="warn" (click)="removeModulePermissionArray(i)">
-                Remover permissão sobre módulo
-              </button>
-            </div>
-          </ng-container>
-          <mat-divider></mat-divider>
-        </mat-list>
-      </ng-container>
+  <mat-card-content>
+    <div *ngIf="isLoading" class="loading">
+      <mat-progress-bar color="primary" mode="buffer">
+      </mat-progress-bar>
     </div>
-    <div style="margin: 10px 0;" >
-      <button mat-raised-button type="button" (click)="addModulePermissionArray()">
-        Adicionar permissão sobre módulo
+    <form id="permissionForm" [formGroup]="permissionFormForm" #permissionFormDirective="ngForm"
+      (ngSubmit)="permissionFormSubmit(permissionFormDirective)" *ngIf="!isLoading">
+      <mat-tab-group>
+        <mat-tab label="Grupo de permissão" id="permissionGroupTab">
+          <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="name" placeholder="Nome do grupo" required
+              autocomplete="new-password">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Descrição</mat-label>
+            <input matInput type="text" formControlName="description" placeholder="Descrição do grupo"
+              autocomplete="new-password">
+          </mat-form-field>
+
+          <mat-slide-toggle formControlName="isAdminPermission">
+            Permissão administrativa
+          </mat-slide-toggle>
+        </mat-tab>
+        <mat-tab label="Permissões sobre módulos" id="moduleTab">
+          <div>
+            <ng-container formArrayName="modulesPermissionsArray">
+              <mat-list
+                *ngFor="let _modulesPermissionsArray of getModulesPermissionsArray(this.permissionFormForm); index as i">
+                <ng-container [formGroupName]="i">
+                  <mat-list-item>
+                    Permissão sobre módulo {{1 + i}}
+                  </mat-list-item>
+                  <div>
+
+                    <mat-form-field>
+                      <mat-label>Módulo</mat-label>
+                      <mat-select formControlName="modules" multiple>
+                        <mat-option *ngFor="let modulesItem of modulesSelectObject" [value]="modulesItem.value">
+                          {{modulesItem.label}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                      <mat-label>Permissões</mat-label>
+                      <mat-select formControlName="permissions" multiple>
+                        <mat-option *ngFor="let permissionsItem of permissionsSelectObject"
+                          [value]="permissionsItem.value">
+                          {{permissionsItem.label}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                  </div>
+                  <div>
+                    <button mat-button type="button" color="warn" (click)="removeModulesPermissionsArray(i)">
+                      Remover permissão sobre módulo
+                    </button>
+                  </div>
+                </ng-container>
+                <mat-divider></mat-divider>
+              </mat-list>
+            </ng-container>
+          </div>
+          <div style="margin: 10px 0;">
+            <button mat-raised-button type="button" (click)="addModulesPermissionsArray()">
+              Adicionar permissão sobre módulo
+            </button>
+            <mat-divider></mat-divider>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+      <button mat-raised-button [disabled]="!permissionFormForm.valid || isLoading">
+        <mat-icon>undefined</mat-icon>
+        Criar
       </button>
-      <mat-divider></mat-divider>
-    </div>
-    </mat-tab></mat-tab-group>
-    <button mat-raised-button 
-     [disabled]="!permissionFormForm.valid || isLoading">
-      <mat-icon>undefined</mat-icon>
-      Criar
-    </button>
-    
-      </form>
-    </mat-card-content>
-  </mat-card>
-  
+
+    </form>
+  </mat-card-content>
+</mat-card>

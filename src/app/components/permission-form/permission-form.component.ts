@@ -1,231 +1,90 @@
-import { Component } from "@angular/core";
-import {
-  FormBuilder,
-  FormGroupDirective,
-  FormGroup,
-  FormArray,
-  Validators,
-} from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 
-import { MyErrorHandler } from "../../utils/error-handler";
-import { PermissionFormService } from "./permission-form.service";
-
-@Component({
-  selector: "app-permission-form",
-  templateUrl: "./permission-form.component.html",
-  styleUrls: ["./permission-form.component.scss"],
+@Injectable({
+  providedIn: "root",
 })
-export class PermissionFormComponent {
-  permissionFormId: string = "";
-  permissionFormForm: FormGroup;
-  permissionFormToEdit: any;
-  isAddModule: boolean = true;
-  isLoading: boolean = false;
-  moduleIdSelectObject: Array<any> = [];
-  permissionActionIdSelectObject: Array<any> = [];
-  permissionFormBuilder = {
-    name: [
-      {
-        value: null,
-        disabled: false,
-      },
-      [Validators.required],
-    ],
+export class PermissionFormService {
+  BASE_URL = "http://localhost:3000";
 
-    description: [
-      {
-        value: null,
-        disabled: false,
-      },
-      [],
-    ],
+  constructor(private _httpClient: HttpClient) {}
 
-    isAdminPermission: [false, []],
-
-    modulePermissionArray: this._formBuilder.array([]),
-  };
-  modulePermissionArrayBuilder = {
-    moduleId: [null, []],
-
-    permissionActionId: [[], []],
-  };
-
-  constructor(
-    private _formBuilder: FormBuilder,
-    private _activatedRoute: ActivatedRoute,
-    private _router: Router,
-    private _snackbar: MatSnackBar,
-    private _permissionFormService: PermissionFormService,
-    private _errorHandler: MyErrorHandler
-  ) {
-    try {
-      this._activatedRoute.params.subscribe(async (routeParams) => {
-        this.permissionFormId = routeParams["id"];
-        this.isAddModule = !this.permissionFormId;
-
-        if (this.permissionFormId) {
-          this.permissionFormToEdit = await this._permissionFormService.find(
-            this.permissionFormId
-          );
-          this.permissionFormForm.patchValue(this.permissionFormToEdit.data);
-
-          (this.permissionFormForm.get(
-            "modulePermissionArray"
-          ) as FormArray).clear();
-          this.permissionFormToEdit.data.modulePermissionArray?.forEach(
-            (_modulePermissionArray: any) => {
-              const modulePermissionArrayForm = this.initModulePermissionArray();
-              modulePermissionArrayForm.patchValue(_modulePermissionArray);
-              (this.permissionFormForm.get(
-                "modulePermissionArray"
-              ) as FormArray).push(modulePermissionArrayForm);
-            }
-          );
-        }
-        this.checkOptionsCreation(
-          [
-            this.setModuleIdSelectObject,
-            this.setPermissionActionIdSelectObject,
-          ],
-          0
-        );
-      });
-    } catch (error: any) {
-      const message = this._errorHandler.apiErrorMessage(error.error.message);
-      this.sendErrorMessage(message);
-    }
-
-    this.permissionFormForm = this._formBuilder.group(
-      this.permissionFormBuilder
-    );
+  getAll(filter: string = "") {
+    return this._httpClient
+      .get(`${this.BASE_URL}/__permissions${filter}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+      .toPromise();
   }
 
-  initModulePermissionArray() {
-    return this._formBuilder.group(this.modulePermissionArrayBuilder);
+  delete(id: string) {
+    return this._httpClient
+      .delete(`${this.BASE_URL}/__permissions/${id}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+      .toPromise();
   }
 
-  addModulePermissionArray() {
-    const control = <FormArray>(
-      this.permissionFormForm.get(["modulePermissionArray"])
-    );
-    control.push(this.initModulePermissionArray());
+  save(body: any) {
+    return this._httpClient
+      .post(`${this.BASE_URL}/__permissions`, body, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+      .toPromise();
   }
 
-  getModulePermissionArray(form: any) {
-    return form.controls.modulePermissionArray.controls;
+  update(body: any, id: string) {
+    return this._httpClient
+      .put(`${this.BASE_URL}/__permissions/${id}`, body, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+      .toPromise();
   }
 
-  removeModulePermissionArray(i: any) {
-    const control = <FormArray>(
-      this.permissionFormForm.get(["modulePermissionArray"])
-    );
-    control.removeAt(i);
+  find(id: string) {
+    return this._httpClient
+      .get(`${this.BASE_URL}/__permissions/${id}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+      .toPromise();
   }
 
-  setModuleIdSelectObject = async () => {
-    try {
-      const array: any = await this._permissionFormService.moduleIdSelectObjectGetAll();
-      if (array.data?.result) {
-        array.data?.result.map((object: any) => {
-          this.moduleIdSelectObject.push({
-            label: object.name,
-            value: object._id,
-          });
-        });
-      }
-    } catch (error: any) {
-      const message = this._errorHandler.apiErrorMessage(error.error.message);
-      this.sendErrorMessage(message);
-    }
-  };
+  modulesSelectObjectGetAll() {
+    return this._httpClient
+      .get(`${this.BASE_URL}/__modules`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+      .toPromise();
+  }
+  permissionsSelectObjectGetAll() {
+    return this._httpClient
+      .get(`${this.BASE_URL}/__permission-actions`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+      .toPromise();
+  }
 
-  setPermissionActionIdSelectObject = async () => {
-    try {
-      const array: any = await this._permissionFormService.permissionActionIdSelectObjectGetAll();
-      if (array.data?.result) {
-        array.data?.result.map((object: any) => {
-          this.permissionActionIdSelectObject.push({
-            label: object.name,
-            value: object._id,
-          });
-        });
-      }
-    } catch (error: any) {
-      const message = this._errorHandler.apiErrorMessage(error.error.message);
-      this.sendErrorMessage(message);
-    }
-  };
-
-  permissionFormSubmit = async (
-    permissionFormDirective: FormGroupDirective
-  ) => {
-    this.isLoading = true;
-
-    try {
-      if (this.isAddModule) {
-        await this._permissionFormService.save(this.permissionFormForm.value);
-      }
-
-      if (!this.isAddModule) {
-        await this._permissionFormService.update(
-          this.permissionFormForm.value,
-          this.permissionFormId
-        );
-      }
-      this.redirectTo("main/permission");
-
-      this.isLoading = false;
-    } catch (error: any) {
-      if (error.error.logMessage === "jwt expired") {
-        await this.refreshToken();
-        this.permissionFormSubmit(permissionFormDirective);
-      } else {
-        const message = this._errorHandler.apiErrorMessage(error.error.message);
-        this.isLoading = false;
-        this.sendErrorMessage(message);
-      }
-    }
-
-    this.permissionFormForm.reset();
-    permissionFormDirective.resetForm();
-  };
-  refreshToken = async () => {
-    try {
-      const res: any = await this._permissionFormService.refreshToken();
-      if (res) {
-        sessionStorage.setItem("token", res?.data.authToken);
-        sessionStorage.setItem("refreshToken", res?.data.authRefreshToken);
-      }
-    } catch (error: any) {
-      const message = this._errorHandler.apiErrorMessage(error.error.message);
-      this.isLoading = false;
-      this.sendErrorMessage(message);
-      sessionStorage.clear();
-      this._router.navigate(["/"]);
-    }
-  };
-  redirectTo = (uri: string) => {
-    this._router
-      .navigateByUrl("/main", { skipLocationChange: true })
-      .then(() => {
-        this._router.navigate([uri]);
-      });
-  };
-  checkOptionsCreation = async (functions: Array<Function>, index: number) => {
-    const newIndex = index + 1;
-
-    if (newIndex <= functions.length) {
-      await functions[index].call(null);
-      this.checkOptionsCreation(functions, newIndex);
-    } else {
-      this.isLoading = false;
-    }
-  };
-  sendErrorMessage = (errorMessage: string) => {
-    this._snackbar.open(errorMessage, undefined, {
-      duration: 4 * 1000,
-    });
-  };
+  refreshToken() {
+    return this._httpClient
+      .get(`${this.BASE_URL}/auth/refresh-token`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("refreshToken")}`,
+        },
+      })
+      .toPromise();
+  }
 }
