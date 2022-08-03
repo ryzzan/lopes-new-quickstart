@@ -30,12 +30,12 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-
-      <button mat-raised-button [disabled]="!invitationFormForm.valid || isLoading">
-        <mat-icon>undefined</mat-icon>
-        Criar
-      </button>
-
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [disabled]="!invitationFormForm.valid || isLoading">
+          <mat-icon>{{isAddModule ? "save" : "edit"}}</mat-icon>
+          {{isAddModule ? "Criar" : "Editar"}}
+        </button>
+      </mat-card-actions>
     </form>
   </mat-card-content>
 </mat-card>

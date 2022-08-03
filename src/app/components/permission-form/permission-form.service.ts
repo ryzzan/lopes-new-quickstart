@@ -59,7 +59,7 @@ export class PermissionFormService {
       .toPromise();
   }
 
-  modulesSelectObjectGetAll() {
+  moduleIdSelectObjectGetAll() {
     return this._httpClient
       .get(`${this.BASE_URL}/__modules`, {
         headers: {

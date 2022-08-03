@@ -23,7 +23,7 @@ export class PermissionFormComponent {
   permissionFormToEdit: any;
   isAddModule: boolean = true;
   isLoading: boolean = false;
-  modulesSelectObject: Array<any> = [];
+  moduleIdSelectObject: Array<any> = [];
   permissionsSelectObject: Array<any> = [];
   permissionFormBuilder = {
     name: [
@@ -47,7 +47,7 @@ export class PermissionFormComponent {
     modulesPermissionsArray: this._formBuilder.array([]),
   };
   modulesPermissionsArrayBuilder = {
-    modules: [[], []],
+    moduleId: [null, []],
 
     permissions: [[], []],
   };
@@ -85,7 +85,7 @@ export class PermissionFormComponent {
           );
         }
         this.checkOptionsCreation(
-          [this.setModulesSelectObject, this.setPermissionsSelectObject],
+          [this.setModuleIdSelectObject, this.setPermissionsSelectObject],
           0
         );
       });
@@ -121,12 +121,12 @@ export class PermissionFormComponent {
     control.removeAt(i);
   }
 
-  setModulesSelectObject = async () => {
+  setModuleIdSelectObject = async () => {
     try {
-      const array: any = await this._permissionFormService.modulesSelectObjectGetAll();
+      const array: any = await this._permissionFormService.moduleIdSelectObjectGetAll();
       if (array.data?.result) {
         array.data?.result.map((object: any) => {
-          this.modulesSelectObject.push({
+          this.moduleIdSelectObject.push({
             label: object.name,
             value: object._id,
           });
