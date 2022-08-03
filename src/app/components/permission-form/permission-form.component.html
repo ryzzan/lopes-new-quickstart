@@ -31,9 +31,9 @@
         </mat-tab>
         <mat-tab label="Permissões sobre módulos" id="moduleTab">
           <div>
-            <ng-container formArrayName="modulesPermissionsArray">
+            <ng-container formArrayName="modulePermissions">
               <mat-list
-                *ngFor="let _modulesPermissionsArray of getModulesPermissionsArray(this.permissionFormForm); index as i">
+                *ngFor="let _modulePermissions of getModulePermissions(this.permissionFormForm); index as i">
                 <ng-container [formGroupName]="i">
                   <mat-list-item>
                     Permissão sobre módulo {{1 + i}}
@@ -61,7 +61,7 @@
 
                   </div>
                   <div>
-                    <button mat-button type="button" color="warn" (click)="removeModulesPermissionsArray(i)">
+                    <button mat-button type="button" color="warn" (click)="removeModulePermissions(i)">
                       Remover permissão sobre módulo
                     </button>
                   </div>
@@ -71,7 +71,7 @@
             </ng-container>
           </div>
           <div style="margin: 10px 0;">
-            <button mat-raised-button type="button" (click)="addModulesPermissionsArray()">
+            <button mat-raised-button type="button" (click)="addModulePermissions()">
               Adicionar permissão sobre módulo
             </button>
             <mat-divider></mat-divider>

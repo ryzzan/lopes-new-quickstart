@@ -44,9 +44,9 @@ export class PermissionFormComponent {
 
     isAdminPermission: [false, []],
 
-    modulesPermissionsArray: this._formBuilder.array([]),
+    modulePermissions: this._formBuilder.array([]),
   };
-  modulesPermissionsArrayBuilder = {
+  modulePermissionsBuilder = {
     moduleId: [null, []],
 
     permissions: [[], []],
@@ -72,15 +72,15 @@ export class PermissionFormComponent {
           this.permissionFormForm.patchValue(this.permissionFormToEdit.data);
 
           (this.permissionFormForm.get(
-            "modulesPermissionsArray"
+            "modulePermissions"
           ) as FormArray).clear();
-          this.permissionFormToEdit.data.modulesPermissionsArray?.forEach(
-            (_modulesPermissionsArray: any) => {
-              const modulesPermissionsArrayForm = this.initModulesPermissionsArray();
-              modulesPermissionsArrayForm.patchValue(_modulesPermissionsArray);
+          this.permissionFormToEdit.data.modulePermissions?.forEach(
+            (_modulePermissions: any) => {
+              const modulePermissionsForm = this.initModulePermissions();
+              modulePermissionsForm.patchValue(_modulePermissions);
               (this.permissionFormForm.get(
-                "modulesPermissionsArray"
-              ) as FormArray).push(modulesPermissionsArrayForm);
+                "modulePermissions"
+              ) as FormArray).push(modulePermissionsForm);
             }
           );
         }
@@ -99,24 +99,24 @@ export class PermissionFormComponent {
     );
   }
 
-  initModulesPermissionsArray() {
-    return this._formBuilder.group(this.modulesPermissionsArrayBuilder);
+  initModulePermissions() {
+    return this._formBuilder.group(this.modulePermissionsBuilder);
   }
 
-  addModulesPermissionsArray() {
+  addModulePermissions() {
     const control = <FormArray>(
-      this.permissionFormForm.get(["modulesPermissionsArray"])
+      this.permissionFormForm.get(["modulePermissions"])
     );
-    control.push(this.initModulesPermissionsArray());
+    control.push(this.initModulePermissions());
   }
 
-  getModulesPermissionsArray(form: any) {
-    return form.controls.modulesPermissionsArray.controls;
+  getModulePermissions(form: any) {
+    return form.controls.modulePermissions.controls;
   }
 
-  removeModulesPermissionsArray(i: any) {
+  removeModulePermissions(i: any) {
     const control = <FormArray>(
-      this.permissionFormForm.get(["modulesPermissionsArray"])
+      this.permissionFormForm.get(["modulePermissions"])
     );
     control.removeAt(i);
   }
