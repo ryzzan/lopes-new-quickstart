@@ -24,7 +24,7 @@ export class PermissionFormComponent {
   isAddModule: boolean = true;
   isLoading: boolean = false;
   moduleIdSelectObject: Array<any> = [];
-  permissionsSelectObject: Array<any> = [];
+  permissionActionsSelectObject: Array<any> = [];
   permissionFormBuilder = {
     name: [
       {
@@ -49,7 +49,7 @@ export class PermissionFormComponent {
   modulePermissionsBuilder = {
     moduleId: [null, []],
 
-    permissions: [[], []],
+    permissionActions: [[], []],
   };
 
   constructor(
@@ -85,7 +85,7 @@ export class PermissionFormComponent {
           );
         }
         this.checkOptionsCreation(
-          [this.setModuleIdSelectObject, this.setPermissionsSelectObject],
+          [this.setModuleIdSelectObject, this.setPermissionActionsSelectObject],
           0
         );
       });
@@ -138,12 +138,12 @@ export class PermissionFormComponent {
     }
   };
 
-  setPermissionsSelectObject = async () => {
+  setPermissionActionsSelectObject = async () => {
     try {
-      const array: any = await this._permissionFormService.permissionsSelectObjectGetAll();
+      const array: any = await this._permissionFormService.permissionActionsSelectObjectGetAll();
       if (array.data?.result) {
         array.data?.result.map((object: any) => {
-          this.permissionsSelectObject.push({
+          this.permissionActionsSelectObject.push({
             label: object.name,
             value: object._id,
           });

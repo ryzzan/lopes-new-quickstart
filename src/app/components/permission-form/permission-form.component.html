@@ -32,8 +32,7 @@
         <mat-tab label="Permissões sobre módulos" id="moduleTab">
           <div>
             <ng-container formArrayName="modulePermissions">
-              <mat-list
-                *ngFor="let _modulePermissions of getModulePermissions(this.permissionFormForm); index as i">
+              <mat-list *ngFor="let _modulePermissions of getModulePermissions(this.permissionFormForm); index as i">
                 <ng-container [formGroupName]="i">
                   <mat-list-item>
                     Permissão sobre módulo {{1 + i}}
@@ -51,10 +50,10 @@
 
                     <mat-form-field>
                       <mat-label>Permissões</mat-label>
-                      <mat-select formControlName="permissions" multiple>
-                        <mat-option *ngFor="let permissionsItem of permissionsSelectObject"
-                          [value]="permissionsItem.value">
-                          {{permissionsItem.label}}
+                      <mat-select formControlName="permissionActions" multiple>
+                        <mat-option *ngFor="let permissionActionsItem of permissionActionsSelectObject"
+                          [value]="permissionActionsItem.value">
+                          {{permissionActionsItem.label}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>

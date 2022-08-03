@@ -48,7 +48,7 @@ export class MainComponent implements OnInit {
         this.permissionGroupsOwners =  permissions;
       }
       
-      permissions[this.permissionIndex].permissions.forEach((permission: any) => {
+      permissions[this.permissionIndex].modulePermissions.forEach((permission: any) => {
         this.menu.push({
           router: `/main/${permission.module.route}`,
           title: `${permission.module.name}`,

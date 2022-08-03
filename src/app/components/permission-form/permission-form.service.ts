@@ -68,7 +68,7 @@ export class PermissionFormService {
       })
       .toPromise();
   }
-  permissionsSelectObjectGetAll() {
+  permissionActionsSelectObjectGetAll() {
     return this._httpClient
       .get(`${this.BASE_URL}/__permission-actions`, {
         headers: {
