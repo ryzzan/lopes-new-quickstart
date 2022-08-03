@@ -23,10 +23,10 @@
     <mat-card-content class="table-container">
     <table mat-table [dataSource]="permissionTableDataSource" class="mat-elevation-z8">
       
-  <ng-container matColumnDef="groupNameId">
+  <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> Grupo de permissão </th>
     <td mat-cell *matCellDef="let element"> 
-    {{element.groupNameId}}
+    {{element.name}}
      </td>
   </ng-container>
   
@@ -63,7 +63,7 @@
   
     <mat-menu #permissionTableMenu="matMenu">
       
-    <ng-template matMenuContent let-_id="element._id"><button mat-menu-item [routerLink]="['/main/permission', _id]">
+    <ng-template matMenuContent let-_id="element._id"><button mat-menu-item [routerLink]="['/main/__permission-group', _id]">
       
       <span>Editar</span>
     </button>

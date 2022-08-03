@@ -135,7 +135,7 @@ export class InvitationFormComponent {
           this.invitationFormId
         );
       }
-      this.redirectTo("main/invitation");
+      this.redirectTo("main/__invitation");
 
       this.isLoading = false;
     } catch (error: any) {

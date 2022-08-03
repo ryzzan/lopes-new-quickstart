@@ -19,7 +19,7 @@
     
   permissionTableId: string = "";
   permissionTableDisplayedColumns: string[] = [
-    "groupNameId", "undefined", 
+    "name", "undefined", 
   ];
   permissionTableDataSource: any = [];
   permissionTableSearchForm: FormGroup;

@@ -28,7 +28,21 @@ export const routes: Routes = [
           ),
       },
       {
+        path: "__invitation/:id",
+        loadChildren: () =>
+          import("../invitation/invitation.module").then(
+            (m) => m.__InvitationModule
+          ),
+      },
+      {
         path: "__permission-group",
+        loadChildren: () =>
+          import("../permission/permission.module").then(
+            (m) => m.__PermissionGroupModule
+          ),
+      },
+      {
+        path: "__permission-group/:id",
         loadChildren: () =>
           import("../permission/permission.module").then(
             (m) => m.__PermissionGroupModule

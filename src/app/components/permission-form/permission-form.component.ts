@@ -171,7 +171,7 @@ export class PermissionFormComponent {
           this.permissionFormId
         );
       }
-      this.redirectTo("main/permission");
+      this.redirectTo("main/__permission-group");
 
       this.isLoading = false;
     } catch (error: any) {
