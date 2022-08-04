@@ -14,7 +14,7 @@ import { FormBuilder, FormGroupDirective, FormGroup } from "@angular/forms";
 })
 export class InvitationTableComponent {
   invitationTableId: string = "";
-  invitationTableDisplayedColumns: string[] = ["name", "undefined"];
+  invitationTableDisplayedColumns: string[] = ["email", "undefined"];
   invitationTableDataSource: any = [];
   invitationTableSearchForm: FormGroup;
   isLoading = true;
