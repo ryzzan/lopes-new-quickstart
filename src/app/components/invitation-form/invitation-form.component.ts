@@ -69,8 +69,8 @@ export class InvitationFormComponent {
   }
 
   displayFnToPermissionGroupId = (value?: any) => {
-    const otherValue = this.invitationFormToEdit?.data?.__permissionGroup
-      ? this.invitationFormToEdit.data.__permissionGroup
+    const otherValue = this.invitationFormToEdit?.data?.permissionGroup
+      ? this.invitationFormToEdit.data.permissionGroup
       : null;
     if (value === otherValue?._id) {
       return otherValue.name;
