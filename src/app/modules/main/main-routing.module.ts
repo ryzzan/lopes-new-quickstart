@@ -48,6 +48,20 @@ export const routes: Routes = [
             (m) => m.__PermissionGroupModule
           ),
       },
+      {
+        path: "__related-user",
+        loadChildren: () =>
+          import("../related-user/related-user.module").then(
+            (m) => m.__RelatedUserModule
+          ),
+      },
+      {
+        path: "__related-user/:id",
+        loadChildren: () =>
+          import("../related-user/related-user.module").then(
+            (m) => m.__RelatedUserModule
+          ),
+      },
     ],
   },
   {

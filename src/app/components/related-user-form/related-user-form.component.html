@@ -1,0 +1,66 @@
+<mat-card *ngIf="!isAddModule">
+  <mat-card-header>
+    <mat-card-title>Usuário relacionado</mat-card-title>
+
+  </mat-card-header>
+
+  <mat-card-content>
+    <div *ngIf="isLoading" class="loading">
+      <mat-progress-bar color="primary" mode="buffer">
+      </mat-progress-bar>
+    </div>
+    <form id="relatedUserForm" [formGroup]="relatedUserFormForm" #relatedUserFormDirective="ngForm"
+      (ngSubmit)="relatedUserFormSubmit(relatedUserFormDirective)" *ngIf="!isLoading">
+
+      <mat-form-field>
+        <mat-label>E-mail</mat-label>
+        <input matInput type="email" formControlName="email" required autocomplete="new-password">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Nome</mat-label>
+        <input matInput type="text" formControlName="name" required autocomplete="new-password">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>CPF/CNPJ</mat-label>
+        <input matInput type="text" formControlName="uniqueId" required autocomplete="new-password">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Nome fantasia</mat-label>
+        <input matInput type="text" formControlName="businessName" required autocomplete="new-password">
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Grupo de permissões relacionado</mat-label>
+        <mat-chip-list #permissionGroupIdChipList aria-label="Seleção de grupo de permissões relacionado">
+          <mat-chip *ngFor="let permissionGroupIdItem of chosenPermissionGroupIdView"
+            (removed)="removePermissionGroupId(permissionGroupIdItem)">
+            {{permissionGroupIdItem}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input type="text" formControlName="permissionGroupId" matInput [matAutocomplete]="autoPermissionGroupId"
+            [matChipInputFor]="permissionGroupIdChipList"
+            [matChipInputSeparatorKeyCodes]="permissionGroupIdSeparatorKeysCodes"
+            (matChipInputTokenEnd)="addPermissionGroupId($event)" (keyup)="callSetFilteredPermissionGroupId()"
+            #permissionGroupIdInput>
+        </mat-chip-list>
+        <mat-autocomplete #autoPermissionGroupId="matAutocomplete" (optionSelected)="selectedPermissionGroupId($event)">
+          <mat-option *ngFor="let permissionGroupIdItem of filteredPermissionGroupId"
+            [value]="permissionGroupIdItem._id">
+            {{permissionGroupIdItem.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [disabled]="!relatedUserFormForm.valid || isLoading">
+          <mat-icon>{{isAddModule ? "save" : "edit"}}</mat-icon>
+          {{isAddModule ? "Criar" : "Editar"}}
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>
