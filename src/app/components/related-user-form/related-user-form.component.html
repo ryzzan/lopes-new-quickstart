@@ -22,6 +22,21 @@
         <input matInput type="text" formControlName="name" required autocomplete="new-password">
       </mat-form-field>
 
+      <mat-form-field *ngIf="relatedUserFormToEdit?.data?.person">
+        <mat-label>Gênero</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option *ngFor="let genderItem of genderSelectObject" [value]="genderItem.value"> {{genderItem.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="relatedUserFormToEdit?.data?.person">
+        <input matInput formControlName="birthday" placeholder="Data de criação" required
+          [matDatepicker]="birthdayPicker" [disabled]="true">
+        <mat-datepicker-toggle matSuffix [for]="birthdayPicker"></mat-datepicker-toggle>
+        <mat-datepicker #birthdayPicker [disabled]="false"></mat-datepicker>
+      </mat-form-field>
+
       <mat-form-field>
         <mat-label>{{relatedUserFormToEdit?.data?.person ? "CPF" : "CNPJ"}}</mat-label>
         <input matInput type="text" formControlName="uniqueId" required autocomplete="new-password">

@@ -20,6 +20,16 @@ import { RelatedUserFormService } from "./related-user-form.service";
   styleUrls: ["./related-user-form.component.scss"],
 })
 export class RelatedUserFormComponent {
+  genderSelectObject = [
+    {
+      label: "Feminino",
+      value: "F",
+    },
+    {
+      label: "Masculino",
+      value: "M",
+    },
+  ];
   relatedUserFormId: string = "";
   relatedUserFormForm: FormGroup;
   relatedUserFormToEdit: any;
@@ -46,6 +56,22 @@ export class RelatedUserFormComponent {
     ],
 
     name: [
+      {
+        value: null,
+        disabled: true,
+      },
+      [Validators.required],
+    ],
+
+    gender: [
+      {
+        value: null,
+        disabled: true,
+      },
+      [],
+    ],
+
+    birthday: [
       {
         value: null,
         disabled: true,
@@ -95,8 +121,10 @@ export class RelatedUserFormComponent {
               email: this.relatedUserFormToEdit.data.email,
               permissionGroups: this.relatedUserFormToEdit.data.permissionGroups,
               name: this.relatedUserFormToEdit.data.person.name,
-              uniqueId: this.relatedUserFormToEdit.data.person.uniqueId
-            }
+              gender: this.relatedUserFormToEdit.data.person.gender,
+              birthday: this.relatedUserFormToEdit.data.person.birthday,
+              uniqueId: this.relatedUserFormToEdit.data.person.uniqueId,
+            };
           }
 
           if (this.relatedUserFormToEdit.data.company) {
@@ -104,19 +132,21 @@ export class RelatedUserFormComponent {
               email: this.relatedUserFormToEdit.data.email,
               permissionGroups: this.relatedUserFormToEdit.data.permissionGroups,
               businesName: this.relatedUserFormToEdit.data.company.businessName,
-              uniqueId: this.relatedUserFormToEdit.data.company.uniqueId
-            }
+              uniqueId: this.relatedUserFormToEdit.data.company.uniqueId,
+            };
           }
-          
+
           this.relatedUserFormForm.patchValue(this.relatedUserFormToEditEdited);
 
           if (this.relatedUserFormToEdit.data.permissionGroup) {
             this.chosenPermissionGroupIdView = [];
             this.chosenPermissionGroupIdValue = [];
-            this.relatedUserFormToEdit.data.permissionGroup.forEach((element: any) => {
+            this.relatedUserFormToEdit.data.permissionGroup.forEach(
+              (element: any) => {
                 this.chosenPermissionGroupIdView.push(element.name);
                 this.chosenPermissionGroupIdValue.push(element._id);
-              });
+              }
+            );
           }
         }
         this.checkOptionsCreation([], 0);
