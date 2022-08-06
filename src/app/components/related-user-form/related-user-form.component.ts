@@ -23,6 +23,7 @@ export class RelatedUserFormComponent {
   relatedUserFormId: string = "";
   relatedUserFormForm: FormGroup;
   relatedUserFormToEdit: any;
+  relatedUserFormToEditEdited: any;
   isAddModule: boolean = true;
   isLoading: boolean = false;
 
@@ -88,7 +89,26 @@ export class RelatedUserFormComponent {
           this.relatedUserFormToEdit = await this._relatedUserFormService.find(
             this.relatedUserFormId
           );
-          this.relatedUserFormForm.patchValue(this.relatedUserFormToEdit.data);
+
+          if (this.relatedUserFormToEdit.data.person) {
+            this.relatedUserFormToEditEdited = {
+              email: this.relatedUserFormToEdit.data.email,
+              permissionGroups: this.relatedUserFormToEdit.data.permissionGroups,
+              name: this.relatedUserFormToEdit.data.person.name,
+              uniqueId: this.relatedUserFormToEdit.data.person.uniqueId
+            }
+          }
+
+          if (this.relatedUserFormToEdit.data.company) {
+            this.relatedUserFormToEditEdited = {
+              email: this.relatedUserFormToEdit.data.email,
+              permissionGroups: this.relatedUserFormToEdit.data.permissionGroups,
+              businesName: this.relatedUserFormToEdit.data.company.businessName,
+              uniqueId: this.relatedUserFormToEdit.data.company.uniqueId
+            }
+          }
+          
+          this.relatedUserFormForm.patchValue(this.relatedUserFormToEditEdited);
 
           if (this.relatedUserFormToEdit.data.permissionGroup) {
             this.chosenPermissionGroupIdView = [];
