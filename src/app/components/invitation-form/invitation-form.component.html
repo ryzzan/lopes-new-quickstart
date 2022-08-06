@@ -18,12 +18,23 @@
           autocomplete="new-password">
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="full-width">
         <mat-label>Grupo de permissões relacionado</mat-label>
-        <input type="text" aria-label="Grupo de permissões relacionado" formControlName="permissionGroupId" matInput
-          [matAutocomplete]="autoPermissionGroupId" (keyup)="callSetFilteredPermissionGroupId()">
-        <mat-autocomplete #autoPermissionGroupId="matAutocomplete"
-          [displayWith]="displayFnToPermissionGroupId.bind(this)">
+        <mat-chip-list #permissionGroupIdChipList aria-label="Seleção de grupo de permissões relacionado">
+          <mat-chip *ngFor="let permissionGroupIdItem of chosenPermissionGroupIdView"
+            (removed)="removePermissionGroupId(permissionGroupIdItem)">
+            {{permissionGroupIdItem}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input type="text" formControlName="permissionGroupId" matInput [matAutocomplete]="autoPermissionGroupId"
+            [matChipInputFor]="permissionGroupIdChipList"
+            [matChipInputSeparatorKeyCodes]="permissionGroupIdSeparatorKeysCodes"
+            (matChipInputTokenEnd)="addPermissionGroupId($event)" (keyup)="callSetFilteredPermissionGroupId()"
+            #permissionGroupIdInput>
+        </mat-chip-list>
+        <mat-autocomplete #autoPermissionGroupId="matAutocomplete" (optionSelected)="selectedPermissionGroupId($event)">
           <mat-option *ngFor="let permissionGroupIdItem of filteredPermissionGroupId"
             [value]="permissionGroupIdItem._id">
             {{permissionGroupIdItem.name}}
