@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component } from "@angular/core";
 import {
   FormBuilder,
   FormGroupDirective,
@@ -8,9 +8,7 @@ import {
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MyPerformance } from "src/app/utils/performance";
-import { COMMA, ENTER } from "@angular/cdk/keycodes";
-import { MatChipInputEvent } from "@angular/material/chips";
-import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
+
 import { MyErrorHandler } from "../../utils/error-handler";
 import { InvitationFormService } from "./invitation-form.service";
 
@@ -27,14 +25,6 @@ export class InvitationFormComponent {
   isLoading: boolean = false;
 
   filteredPermissionGroupId: Array<any> = [];
-
-  permissionGroupIdSeparatorKeysCodes: number[] = [ENTER, COMMA];
-  chosenPermissionGroupIdView: string[] = [];
-  chosenPermissionGroupIdValue: string[] = [];
-
-  @ViewChild("permissionGroupIdInput") permissionGroupIdInput!: ElementRef<
-    HTMLInputElement
-  >;
   invitationFormBuilder = {
     email: [
       {
@@ -44,7 +34,7 @@ export class InvitationFormComponent {
       [Validators.email, Validators.required],
     ],
 
-    permissionGroupId: [[], []],
+    permissionGroupId: [null, [Validators.required]],
   };
 
   constructor(
@@ -65,15 +55,6 @@ export class InvitationFormComponent {
             this.invitationFormId
           );
           this.invitationFormForm.patchValue(this.invitationFormToEdit.data);
-
-          if (this.invitationFormToEdit.data.permissionGroup) {
-            this.chosenPermissionGroupIdView = [];
-            this.chosenPermissionGroupIdValue = [];
-            this.invitationFormToEdit.data.permissionGroup.forEach((element: any) => {
-                this.chosenPermissionGroupIdView.push(element.name);
-                this.chosenPermissionGroupIdValue.push(element._id);
-              });
-          }
         }
         this.checkOptionsCreation([], 0);
       });
@@ -85,36 +66,6 @@ export class InvitationFormComponent {
     this.invitationFormForm = this._formBuilder.group(
       this.invitationFormBuilder
     );
-  }
-
-  addPermissionGroupId(event: MatChipInputEvent): void {
-    const value = (event.value || "").trim();
-
-    if (value) {
-      this.chosenPermissionGroupIdView.push(value);
-    }
-    event.chipInput!.clear();
-    this.invitationFormForm.get("permissionGroupId")?.setValue(null);
-  }
-  removePermissionGroupId(element: string): void {
-    const index = this.chosenPermissionGroupIdView.indexOf(element);
-
-    if (index >= 0) {
-      this.chosenPermissionGroupIdView.splice(index, 1);
-      this.chosenPermissionGroupIdValue.splice(index, 1);
-      this.invitationFormForm
-        .get("permissionGroupId")
-        ?.setValue(this.chosenPermissionGroupIdValue);
-    }
-  }
-
-  selectedPermissionGroupId(event: MatAutocompleteSelectedEvent): void {
-    this.chosenPermissionGroupIdView.push(event.option.viewValue);
-    this.chosenPermissionGroupIdValue.push(event.option.value);
-    this.permissionGroupIdInput.nativeElement.value = "";
-    this.invitationFormForm
-      .get("permissionGroupId")
-      ?.setValue(this.chosenPermissionGroupIdValue);
   }
 
   displayFnToPermissionGroupId = (value?: any) => {

@@ -161,36 +161,6 @@ export class RelatedUserFormComponent {
     );
   }
 
-  addPermissionGroupId(event: MatChipInputEvent): void {
-    const value = (event.value || "").trim();
-
-    if (value) {
-      this.chosenPermissionGroupIdView.push(value);
-    }
-    event.chipInput!.clear();
-    this.relatedUserFormForm.get("permissionGroupId")?.setValue(null);
-  }
-  removePermissionGroupId(element: string): void {
-    const index = this.chosenPermissionGroupIdView.indexOf(element);
-
-    if (index >= 0) {
-      this.chosenPermissionGroupIdView.splice(index, 1);
-      this.chosenPermissionGroupIdValue.splice(index, 1);
-      this.relatedUserFormForm
-        .get("permissionGroupId")
-        ?.setValue(this.chosenPermissionGroupIdValue);
-    }
-  }
-
-  selectedPermissionGroupId(event: MatAutocompleteSelectedEvent): void {
-    this.chosenPermissionGroupIdView.push(event.option.viewValue);
-    this.chosenPermissionGroupIdValue.push(event.option.value);
-    this.permissionGroupIdInput.nativeElement.value = "";
-    this.relatedUserFormForm
-      .get("permissionGroupId")
-      ?.setValue(this.chosenPermissionGroupIdValue);
-  }
-
   displayFnToPermissionGroupId = (value?: any) => {
     const otherValue = this.relatedUserFormToEdit?.data?.__permissionGroup
       ? this.relatedUserFormToEdit.data.__permissionGroup
