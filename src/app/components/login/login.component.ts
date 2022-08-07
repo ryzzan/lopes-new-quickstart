@@ -81,7 +81,7 @@ export class LoginComponent {
     sessionStorage.setItem("email", data.userData.email);
     sessionStorage.setItem(
       "permission",
-      JSON.stringify(data.userData.permissionGroup)
+      JSON.stringify(data.userData.permissionGroups)
     );
 
     if (data.userData.person) {
