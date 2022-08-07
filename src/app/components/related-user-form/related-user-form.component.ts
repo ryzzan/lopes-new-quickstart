@@ -95,7 +95,7 @@ export class RelatedUserFormComponent {
       [Validators.required],
     ],
 
-    permissionGroupId: [[], []],
+    permissionGroupId: [null, [Validators.required]],
   };
 
   constructor(
@@ -119,7 +119,8 @@ export class RelatedUserFormComponent {
           if (this.relatedUserFormToEdit.data.person) {
             this.relatedUserFormToEditEdited = {
               email: this.relatedUserFormToEdit.data.email,
-              permissionGroups: this.relatedUserFormToEdit.data.permissionGroups,
+              permissionGroup: this.relatedUserFormToEdit.data.permissionGroup,
+              permissionGroupId: this.relatedUserFormToEdit.data.permissionGroupId,
               name: this.relatedUserFormToEdit.data.person.name,
               gender: this.relatedUserFormToEdit.data.person.gender,
               birthday: this.relatedUserFormToEdit.data.person.birthday,
@@ -130,24 +131,14 @@ export class RelatedUserFormComponent {
           if (this.relatedUserFormToEdit.data.company) {
             this.relatedUserFormToEditEdited = {
               email: this.relatedUserFormToEdit.data.email,
-              permissionGroups: this.relatedUserFormToEdit.data.permissionGroups,
+              permissionGroup: this.relatedUserFormToEdit.data.permissionGroup,
+              permissionGroupId: this.relatedUserFormToEdit.data.permissionGroupId,
               businesName: this.relatedUserFormToEdit.data.company.businessName,
               uniqueId: this.relatedUserFormToEdit.data.company.uniqueId,
             };
           }
-
+          
           this.relatedUserFormForm.patchValue(this.relatedUserFormToEditEdited);
-
-          if (this.relatedUserFormToEdit.data.permissionGroup) {
-            this.chosenPermissionGroupIdView = [];
-            this.chosenPermissionGroupIdValue = [];
-            this.relatedUserFormToEdit.data.permissionGroup.forEach(
-              (element: any) => {
-                this.chosenPermissionGroupIdView.push(element.name);
-                this.chosenPermissionGroupIdValue.push(element._id);
-              }
-            );
-          }
         }
         this.checkOptionsCreation([], 0);
       });
