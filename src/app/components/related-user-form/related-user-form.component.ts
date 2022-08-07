@@ -162,8 +162,8 @@ export class RelatedUserFormComponent {
   }
 
   displayFnToPermissionGroupId = (value?: any) => {
-    const otherValue = this.relatedUserFormToEdit?.data?.__permissionGroup
-      ? this.relatedUserFormToEdit.data.__permissionGroup
+    const otherValue = this.relatedUserFormToEdit?.data?.permissionGroup
+      ? this.relatedUserFormToEdit.data.permissionGroup
       : null;
     if (value === otherValue?._id) {
       return otherValue.name;
