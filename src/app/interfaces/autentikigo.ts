@@ -21,7 +21,7 @@ export interface UserInterface {
     }
     email: string;
     _id: string;
-    permissionGroups: any;
+    permissionGroup: any;
   }
   authToken: string;
   authRefreshToken: string;

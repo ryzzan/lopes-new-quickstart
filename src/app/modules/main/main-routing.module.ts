@@ -79,7 +79,7 @@ export class MainRoutingModule {
     let permissions;
     const permissionString = sessionStorage.getItem("permission");
     if (permissionString !== null) permissions = JSON.parse(permissionString);
-    permissions[0].modulePermissions.forEach((permission: any) => {
+    permissions.modulePermissions.forEach((permission: any) => {
       let moduleName = `m.${TextTransformation.setIdToClassName(
         permission.module.route
       )}Module`;

@@ -12,7 +12,7 @@ export class MenuGuard implements CanActivate {
   ): boolean {
     const permissions = sessionStorage.getItem('permissions');
 
-    if (typeof permissions === 'string') { console.log(permissions)
+    if (typeof permissions === 'string') {
       const permissionsObject = JSON.parse(permissions);
 
       for (const key in permissionsObject) {
