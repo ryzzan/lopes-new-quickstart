@@ -228,7 +228,7 @@ export class RelatedUserFormComponent {
           this.relatedUserFormId
         );
       }
-      this.redirectTo("main/related-user");
+      this.redirectTo("main/__related-user");
 
       this.isLoading = false;
     } catch (error: any) {
