@@ -31,7 +31,7 @@
         <th mat-header-cell *matHeaderCellDef> Ações </th>
         <td mat-cell *matCellDef="let element">
           <button mat-icon-button class="icon" aria-label="InvitationTable" [matMenuTriggerFor]="invitationTableMenu"
-            [matMenuTriggerData]="{element: element}">
+            [matMenuTriggerData]="{element: element}" *ngIf="updateOnePermission || deleteOnePermission">
             <mat-icon>more_vert</mat-icon>
           </button>
         </td>
@@ -58,12 +58,8 @@
 
 <mat-menu #invitationTableMenu="matMenu">
 
-  <ng-template matMenuContent let-_id="element._id"><button mat-menu-item [routerLink]="['/main/__invitation', _id]">
-
-      <span>Editar</span>
-    </button>
-
-    <button mat-menu-item (click)="removeConfirmationDialogOpenDialog(_id)">
+  <ng-template matMenuContent let-_id="element._id">
+    <button mat-menu-item (click)="removeConfirmationDialogOpenDialog(_id)" *ngIf="deleteOnePermission">
 
       <span>Remover</span>
     </button>

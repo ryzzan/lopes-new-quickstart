@@ -1,7 +1,9 @@
-<mat-card>
+<mat-card *ngIf="(!isAddModule && updateOnePermission) || (isAddModule && createOnePermission)">
   <mat-card-header>
-    <mat-card-title>Permissão</mat-card-title>
-
+    <mat-card-title>{{isAddModule ? "Criar" : "Editar"}} permissão</mat-card-title>
+    <mat-card-subtitle>
+      Utilize os campos abaixo para criar grupos de acesso a esta ferramenta administrativa, selecionar quais módulos esses grupos poderão atuar e quais permissões poderão fazer nos módulos liberados.
+    </mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>

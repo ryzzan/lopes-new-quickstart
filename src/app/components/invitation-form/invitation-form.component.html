@@ -1,7 +1,9 @@
-<mat-card>
+<mat-card *ngIf="(!isAddModule && updateOnePermission) || (isAddModule && createOnePermission)">
   <mat-card-header>
-    <mat-card-title>Convite</mat-card-title>
-
+    <mat-card-title>Enviar convite</mat-card-title>
+    <mat-card-subtitle>
+      Utilize as abas abaixo para convidar os usuários que terão acesso a esta ferramenta administrativa.
+    </mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
