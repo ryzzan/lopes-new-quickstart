@@ -33,7 +33,7 @@ export class PermissionTableComponent {
     private _errorHandler: MyErrorHandler,
     private _permissionTableService: PermissionTableService
   ) {
-    const modulePermissionToCheck: any = this.permissionsToCheck.find((item: any) => item.module.name === "Convites")
+    const modulePermissionToCheck: any = this.permissionsToCheck.find((item: any) => item.module.name === "Grupo de permissões")
     this.updateOnePermission = modulePermissionToCheck.permissionActions.filter((item: any) => item.name === "updateOne").length > 0;
     this.readPermission = modulePermissionToCheck.permissionActions.filter((item: any) => item.name === "read").length > 0;
     this.deleteOnePermission = modulePermissionToCheck.permissionActions.filter((item: any) => item.name === "deleteOne").length > 0;
