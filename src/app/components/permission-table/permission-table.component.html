@@ -59,7 +59,7 @@
 <mat-menu #permissionTableMenu="matMenu">
 
   <ng-template matMenuContent let-_id="element._id"><button mat-menu-item
-      [routerLink]="['/main/__permission-group', _id]">
+      [routerLink]="['/main/__permission-group', _id]" *ngIf="updateOnePermission">
 
       <span>Editar</span>
     </button>

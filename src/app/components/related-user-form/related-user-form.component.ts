@@ -36,6 +36,10 @@ export class RelatedUserFormComponent {
   relatedUserFormToEditEdited: any;
   isAddModule: boolean = true;
   isLoading: boolean = false;
+  // SET PERMISSIONS
+  permissionsToCheck = JSON.parse(sessionStorage.getItem("permission")!)[0].modulePermissions;
+  updateOnePermission: any;
+  createOnePermission: any;
 
   filteredPermissionGroupId: Array<any> = [];
 
@@ -107,6 +111,10 @@ export class RelatedUserFormComponent {
     private _errorHandler: MyErrorHandler
   ) {
     try {
+      const modulePermissionToCheck: any = this.permissionsToCheck.find((item: any) => item.module.name === "Usuários relacionados")
+      this.updateOnePermission = modulePermissionToCheck.permissionActions.filter((item: any) => item.name === "updateOne").length > 0;
+      this.createOnePermission = modulePermissionToCheck.permissionActions.filter((item: any) => item.name === "createOne").length > 0;
+
       this._activatedRoute.params.subscribe(async (routeParams) => {
         this.relatedUserFormId = routeParams["id"];
         this.isAddModule = !this.relatedUserFormId;

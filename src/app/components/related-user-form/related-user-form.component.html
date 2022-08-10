@@ -1,6 +1,6 @@
-<mat-card *ngIf="!isAddModule">
+<mat-card *ngIf="(!isAddModule && updateOnePermission)">
   <mat-card-header>
-    <mat-card-title>Usuário relacionado</mat-card-title>
+    <mat-card-title>{{isAddModule ? "Criar" : "Editar"}} usuário relacionado</mat-card-title>
 
   </mat-card-header>
 

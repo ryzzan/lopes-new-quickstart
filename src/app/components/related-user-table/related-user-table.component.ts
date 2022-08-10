@@ -18,6 +18,12 @@ export class RelatedUserTableComponent {
   relatedUserTableDataSource: any = [];
   relatedUserTableSearchForm: FormGroup;
   isLoading = true;
+  // SET PERMISSIONS
+  permissionsToCheck = JSON.parse(sessionStorage.getItem("permission")!)[0]
+    .modulePermissions;
+  updateOnePermission: any;
+  deleteOnePermission: any;
+  readPermission: any;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -28,6 +34,10 @@ export class RelatedUserTableComponent {
     private _errorHandler: MyErrorHandler,
     private _relatedUserTableService: RelatedUserTableService
   ) {
+const modulePermissionToCheck: any = this.permissionsToCheck.find((item: any) => item.module.name === "Usuários relacionados")
+    this.updateOnePermission = modulePermissionToCheck.permissionActions.filter((item: any) => item.name === "updateOne").length > 0;
+    this.readPermission = modulePermissionToCheck.permissionActions.filter((item: any) => item.name === "read").length > 0;
+    this.deleteOnePermission = modulePermissionToCheck.permissionActions.filter((item: any) => item.name === "deleteOne").length > 0;
     this.relatedUserTableSearchForm = this._formBuilder.group({
       searchInput: [null, []],
     });
