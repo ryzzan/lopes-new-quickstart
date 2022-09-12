@@ -1,15 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
-html,body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 table {
@@ -17,7 +18,8 @@ table {
   white-space: nowrap;
 }
 
-.mat-cell, .mat-header-cell {
+.mat-cell,
+.mat-header-cell {
   padding-right: 18px;
 }
 
@@ -32,7 +34,7 @@ mat-toolbar {
 }
 
 mat-card {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 mat-form-field {
@@ -115,4 +117,8 @@ mat-tab {
 
 .text-centralized {
   text-align: center;
+}
+
+cdk-virtual-scroll-viewport {
+  height: 400px;
 }
