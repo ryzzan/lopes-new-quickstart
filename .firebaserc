@@ -1,14 +1,14 @@
 {
   "targets": {
-    "kunlatek-quickstart": {
+    "lopes-quickstart": {
       "hosting": {
-        "kunlatek-quickstart": [
-          "kunlatek-quickstart"
+        "lopes-quickstart": [
+          "lopes-quickstart"
         ]
       }
     }
   },
   "projects": {
-    "default": "kunlatek-quickstart"
+    "default": "lopes-quickstart"
   }
 }

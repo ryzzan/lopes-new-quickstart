@@ -1,7 +1,7 @@
 {
   "hosting": {
-    "target": "kunlatek-quickstart",
-    "public": "dist/kunlatek-quickstart",
+    "target": "lopes-quickstart",
+    "public": "dist/lopes-quickstart",
     "ignore": [
       "**/.*"
     ],
